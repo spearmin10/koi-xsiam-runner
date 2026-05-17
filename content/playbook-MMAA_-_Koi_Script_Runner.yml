@@ -55,7 +55,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 592.5,
+          "x": 265,
           "y": 50
         }
       }
@@ -77,27 +77,29 @@ tasks:
         simple: ${notification_email.subject}
       to:
         simple: ${inputs.config_entry.notification.recipients}
+      using:
+        simple: ${inputs.config_entry.notification.sendmail_instance.name}
     separatecontext: false
     skipunavailable: false
     task:
       brand: TSRAIN Mail Server Compact
       description: Send an email
-      id: 0562e295-0154-4454-8345-e3c0cdfa7c3f
+      id: 4fe8e100-7351-4cec-8850-1580f51477a1
       iscommand: true
       istaskmissingcomponenterrordismissed: false
-      name: Send Notification
+      name: Send Notification (Specified)
       playbooktaskmissingcomponent: null
       script: TSRAIN Mail Server Compact|||send-mail
       type: regular
       version: -1
-    taskid: 0562e295-0154-4454-8345-e3c0cdfa7c3f
+    taskid: 4fe8e100-7351-4cec-8850-1580f51477a1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 265,
-          "y": 1670
+          "x": 377.5,
+          "y": 1855
         }
       }
   "30":
@@ -125,8 +127,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 377.5,
-          "y": 1855
+          "x": 100,
+          "y": 2010
         }
       }
   "37":
@@ -169,7 +171,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
+          "x": 592.5,
           "y": 1300
         }
       }
@@ -183,6 +185,70 @@ tasks:
           operator: isNotEmpty
           right:
             value: {}
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: name
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.commands.name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: send-mail
+                root: modules
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.notification.sendmail_instance.name
+          operator: isEmpty
+        - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: name
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.name
+                    operator: isEqualString
+                    right:
+                      iscontext: true
+                      value:
+                        simple: inputs.config_entry.notification.sendmail_instance.name
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.commands.name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: send-mail
+                root: modules
+          operator: isNotEmpty
       label: "yes"
     continueonerrortype: ""
     id: "38"
@@ -200,20 +266,20 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 8f14d2b8-8259-40da-8ed5-bfd6d9eddcc0
+      id: 954eeb22-2fff-4138-906e-bb4689c44fa3
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Send Notifications?
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: 8f14d2b8-8259-40da-8ed5-bfd6d9eddcc0
+    taskid: 954eeb22-2fff-4138-906e-bb4689c44fa3
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 377.5,
+          "x": 480,
           "y": 1115
         }
       }
@@ -245,7 +311,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 377.5,
+          "x": 480,
           "y": 945
         }
       }
@@ -277,7 +343,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 592.5,
+          "x": 265,
           "y": 220
         }
       }
@@ -309,7 +375,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 377.5,
+          "x": 480,
           "y": 582.5
         }
       }
@@ -368,7 +434,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 592.5,
+          "x": 265,
           "y": 390
         }
       }
@@ -402,7 +468,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 807.5,
+          "x": 50,
           "y": 575
         }
       }
@@ -450,7 +516,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 377.5,
+          "x": 480,
           "y": 760
         }
       }
@@ -462,7 +528,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "29"
+      - "49"
     note: false
     quietmode: 0
     scriptarguments:
@@ -569,7 +635,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 50,
+          "x": 807.5,
           "y": 1485
         }
       }
@@ -581,7 +647,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "29"
+      - "49"
     note: false
     quietmode: 0
     scriptarguments:
@@ -685,8 +751,91 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 480,
+          "x": 377.5,
           "y": 1485
+        }
+      }
+  "48":
+    continueonerrortype: ""
+    id: "48"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      htmlBody:
+        simple: ${notification_email.html_body}
+      subject:
+        simple: ${notification_email.subject}
+      to:
+        simple: ${inputs.config_entry.notification.recipients}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: TSRAIN Mail Server Compact
+      description: Send an email
+      id: afbb52e9-f18d-4d32-a2bf-d96faf561f1b
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Send Notification (All)
+      playbooktaskmissingcomponent: null
+      script: TSRAIN Mail Server Compact|||send-mail
+      type: regular
+      version: -1
+    taskid: afbb52e9-f18d-4d32-a2bf-d96faf561f1b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 807.5,
+          "y": 1855
+        }
+      }
+  "49":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.notification.sendmail_instance.name
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "49"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "48"
+      "yes":
+      - "29"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8516e961-1591-4820-8365-b7ef07179964
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the send-mail instance specified?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8516e961-1591-4820-8365-b7ef07179964
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 1670
         }
       }
 version: -1
@@ -695,7 +844,7 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 1865,
+        "height": 2020,
         "width": 1137.5,
         "x": 50,
         "y": 50
