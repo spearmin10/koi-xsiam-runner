@@ -654,7 +654,7 @@ tasks:
       append:
         simple: "false"
       key:
-        simple: notification_message
+        simple: notification_email
       value:
         complex:
           root: .
@@ -737,7 +737,7 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 77a4eaad-d9fa-4064-8571-468a3749faae
+      id: a82148dc-6a1d-4bf6-95a2-31b5c5ed6f3a
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Create Failure Email Message
@@ -745,7 +745,7 @@ tasks:
       script: Set
       type: regular
       version: -1
-    taskid: 77a4eaad-d9fa-4064-8571-468a3749faae
+    taskid: a82148dc-6a1d-4bf6-95a2-31b5c5ed6f3a
     timertriggers: []
     type: regular
     view: |-
