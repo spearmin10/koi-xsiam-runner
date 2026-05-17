@@ -541,6 +541,27 @@ tasks:
           root: .
           transformers:
           - args:
+              dt:
+                value:
+                  simple: ScriptResult.result.results.endpoint_name
+            operator: DT
+          - args:
+              empty_values:
+                value:
+                  simple: None
+              remove_keys: {}
+            operator: RemoveEmpty
+          - operator: uniq
+          - operator: StringifyArray
+          - args:
+              dt:
+                value:
+                  simple: |-
+                    .={
+                      endpoint_names: JSON.parse(val).filter(x => x)
+                    }
+            operator: DT
+          - args:
               ctx_data:
                 iscontext: true
                 value:
@@ -580,9 +601,10 @@ tasks:
                     uppercase; margin-bottom: 8px;\">Target Endpoints:</div>\n                <ul
                     style=\"margin: 0; padding-left: 20px; font-size: 14px; color:
                     #2c3e2e; font-family: Monaco, Consolas, monospace; list-style-type:
-                    disc;\">\n                    ${ScriptResult.result.results.endpoint_name=>Array.from(new
-                    Set(val.map(x => '<li style=\"margin-bottom: 4px; word-break:
-                    break-all;\">' + x + '</li>'))).join('')}\n                </ul>\n
+                    disc;\">\n                    ${.endpoint_names=>val.map(x =>
+                    '<li style=\"margin-bottom: 4px; word-break: break-all;\">' +
+                    x + '</li>').join('') || '<li style=\"margin-bottom: 4px; word-break:
+                    break-all;\">*** No Endpoint ***</li>'}\n                </ul>\n
                     \           </div>\n\n            <p style=\"margin: 0 0 16px
                     0;\">To review the execution details, logs, or generated data
                     for this job, please access the management console using the link
@@ -621,7 +643,7 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: f7f71a22-57cc-4bbb-8609-d51eb7710ddd
+      id: 2b16dd80-660a-42cf-b818-d7e299c996ef
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Create Success Email Message
@@ -629,7 +651,7 @@ tasks:
       script: Set
       type: regular
       version: -1
-    taskid: f7f71a22-57cc-4bbb-8609-d51eb7710ddd
+    taskid: 2b16dd80-660a-42cf-b818-d7e299c996ef
     timertriggers: []
     type: regular
     view: |-
