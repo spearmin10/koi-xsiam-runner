@@ -603,8 +603,7 @@ tasks:
                     #2c3e2e; font-family: Monaco, Consolas, monospace; list-style-type:
                     disc;\">\n                    ${.endpoint_names=>val.map(x =>
                     '<li style=\"margin-bottom: 4px; word-break: break-all;\">' +
-                    x + '</li>').join('') || '<li style=\"margin-bottom: 4px; word-break:
-                    break-all;\">*** No Endpoint ***</li>'}\n                </ul>\n
+                    x + '</li>').join('') || '*** No Endpoints ***'}\n                </ul>\n
                     \           </div>\n\n            <p style=\"margin: 0 0 16px
                     0;\">To review the execution details, logs, or generated data
                     for this job, please access the management console using the link
@@ -643,7 +642,7 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 2b16dd80-660a-42cf-b818-d7e299c996ef
+      id: c1188794-7e97-46d5-8759-e4d4eabafdec
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Create Success Email Message
@@ -651,7 +650,7 @@ tasks:
       script: Set
       type: regular
       version: -1
-    taskid: 2b16dd80-660a-42cf-b818-d7e299c996ef
+    taskid: c1188794-7e97-46d5-8759-e4d4eabafdec
     timertriggers: []
     type: regular
     view: |-
