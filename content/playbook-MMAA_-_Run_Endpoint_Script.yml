@@ -1106,6 +1106,8 @@ tasks:
     scriptarguments:
       all:
         simple: "yes"
+      subplaybook:
+        simple: auto
     separatecontext: false
     skipunavailable: false
     task:
@@ -1116,7 +1118,7 @@ tasks:
         see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
         \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
         For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
-      id: fbfc0958-f7df-407e-af47-4c17e28b185d
+      id: 5291a771-54fa-48b6-a326-5f07c5ca27f9
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Cleanup Workspace
@@ -1124,7 +1126,7 @@ tasks:
       script: DeleteContext
       type: regular
       version: -1
-    taskid: fbfc0958-f7df-407e-af47-4c17e28b185d
+    taskid: 5291a771-54fa-48b6-a326-5f07c5ca27f9
     timertriggers: []
     type: regular
     view: |-
