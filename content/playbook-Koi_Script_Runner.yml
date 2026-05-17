@@ -1,0 +1,210 @@
+adopted: true
+description: |-
+  This playbook executes KOI scripts on endpoints according to the "Koi Script Runner" configuration in the Lists.
+
+  Note that this playbook must be executed as a Job.
+dirtyInputs: true
+id: Koi Script Runner
+inputSections:
+- description: Generic group for inputs
+  inputs: []
+  name: General (Inputs group)
+inputs: []
+name: Koi Script Runner
+outlinetasks: {}
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
+outputs: []
+possibleresponses: []
+sourceplaybookid: 7b52e67b-de88-4f87-8dc4-065890b658ca
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 83c86d0b-8ce3-403d-8371-bf97b94a28e0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 83c86d0b-8ce3-403d-8371-bf97b94a28e0
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 50
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: config_entries
+      value:
+        complex:
+          accessor: Koi Script Runner
+          root: lists
+          transformers:
+          - operator: ParseJSON
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 2854fe86-e9cb-4859-8b30-79746e903aa8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Load the "Koi Script Runner" configuration
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 2854fe86-e9cb-4859-8b30-79746e903aa8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 220
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.close.inv
+      id: f9f8d6f4-ed81-47ef-8999-34e18c54e46d
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: f9f8d6f4-ed81-47ef-8999-34e18c54e46d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 590
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      forEach: true
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      config_entry:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: config_entries.script.name
+              operator: isNotEmpty
+          - - left:
+                iscontext: true
+                value:
+                  simple: config_entries.target.endpoint_os
+              operator: isNotEmpty
+          - - left:
+                iscontext: true
+                value:
+                  simple: config_entries.target.endpoint_groups
+              operator: isNotEmpty
+            - left:
+                iscontext: true
+                value:
+                  simple: config_entries.target.endpoint_hostnames
+              operator: isNotEmpty
+          root: config_entries
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        This playbook executes a KOI script on endpoints and notifies the result.
+        Note that this playbook must be executed as a Job.
+      id: 20d8489c-d1cf-4d3b-abc7-cb07bff1c1c2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Run the "Koi Script Runner" for each configuration entry
+      playbookId: MMAA - Koi Script Runner
+      playbooktaskmissingcomponent: null
+      type: playbook
+      version: -1
+    taskid: 20d8489c-d1cf-4d3b-abc7-cb07bff1c1c2
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 405
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 615,
+        "width": 380,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }

@@ -1,0 +1,1107 @@
+adopted: true
+description: This playbook executes a script on endpoints.
+dirtyInputs: true
+id: MMAA - Run Endpoint Script
+inputSections:
+- description: ""
+  inputs:
+  - endpoint_groups
+  - endpoint_hostnames
+  - endpoint_os
+  - script_name
+  name: Basic Settings
+inputs:
+- description: A list of endpoint group names to limit script execution to specific
+    targets.
+  key: endpoint_groups
+  playbookInputQuery: null
+  required: false
+  value:
+    simple: Minoue-Lab Default
+- description: A list of endpoint host names to limit script execution to specific
+    targets.
+  key: endpoint_hostnames
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: Target OS type for the endpoints where the script will execute (e.g.,
+    Windows, macOS)
+  key: endpoint_os
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: Windows
+- description: The name of a script to be executed, matching the entry in the Action
+    Center Script Library.
+  key: script_name
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: Koi Script Package - Windows
+name: MMAA - Run Endpoint Script
+outlinetasks: {}
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs:
+  - ScriptResult
+  - ScriptResult.ok
+  - ScriptResult.reason
+  - ScriptResult.result
+outputs:
+- contextPath: ScriptResult
+  type: unknown
+- contextPath: ScriptResult.ok
+  description: 'True: Success, False: Failure'
+  type: boolean
+- contextPath: ScriptResult.reason
+  description: The reason why the script failed to run.
+  type: string
+- contextPath: ScriptResult.result
+  description: Returns the ScriptResult received from core-script-run.
+  type: unknown
+possibleresponses: []
+sourceplaybookid: 7b52e67b-de88-4f87-8dc4-065890b658ca
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 2791c787-b138-4b78-8b4b-784841da8dae
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 2791c787-b138-4b78-8b4b-784841da8dae
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 1340,
+          "y": 50
+        }
+      }
+  "14":
+    continueonerrortype: ""
+    id: "14"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "17"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4a7f7f08-a5c9-43f7-8ad9-cb410db96085
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get Script UUID
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4a7f7f08-a5c9-43f7-8ad9-cb410db96085
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1340,
+          "y": 220
+        }
+      }
+  "15":
+    continueonerrortype: ""
+    id: "15"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      script_name:
+        complex:
+          root: inputs.script_name
+          transformers:
+          - operator: FirstArrayElement
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Core - IR
+      description: Gets a list of scripts available in the scripts library.
+      id: 7f4014ba-0454-4509-897c-7b228f666d50
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get list of scripts
+      playbooktaskmissingcomponent: null
+      script: Cortex Core - IR|||core-get-scripts
+      type: regular
+      version: -1
+    taskid: 7f4014ba-0454-4509-897c-7b228f666d50
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1125,
+          "y": 575
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: script_uuid
+      value:
+        simple: ${Core.Scripts.script_uid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: ee863c29-da0c-4093-8b38-8c3e7eb47ab3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Find Script UUID
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: ee863c29-da0c-4093-8b38-8c3e7eb47ab3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1125,
+          "y": 760
+        }
+      }
+  "17":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.script_name
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "1"
+      label: "yes"
+    continueonerrortype: ""
+    id: "17"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "15"
+      "yes":
+      - "37"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cc4478c5-63af-47a7-82e5-d3e904d4dcd4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Are multiple script names provided?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cc4478c5-63af-47a7-82e5-d3e904d4dcd4
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1340,
+          "y": 390
+        }
+      }
+  "19":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Core.Scripts.script_uid
+          operator: isEmpty
+      label: not found
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: script_uid
+                root: Core.Scripts
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "1"
+      label: multiple UUID
+    continueonerrortype: ""
+    id: "19"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "22"
+      multiple UUID:
+      - "39"
+      not found:
+      - "38"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1df5ebb1-78ea-40d7-866f-c4e07c193a0a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was a single script UUID found?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 1df5ebb1-78ea-40d7-866f-c4e07c193a0a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1125,
+          "y": 945
+        }
+      }
+  "22":
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "23"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4ae07db9-8eca-4c30-898b-23db43df0b64
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get Target Endpoints
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4ae07db9-8eca-4c30-898b-23db43df0b64
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 695,
+          "y": 1137.5
+        }
+      }
+  "23":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "44"
+      '#none#':
+      - "35"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      group_name:
+        complex:
+          root: inputs.endpoint_groups
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ','
+            operator: join
+      hostname:
+        complex:
+          root: inputs.endpoint_hostnames
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ','
+            operator: join
+      status:
+        simple: connected
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Core - IR
+      description: Gets a list of endpoints, according to the passed filters. If there
+        are no filters, all endpoints are returned. Filtering by multiple fields will
+        be concatenated using AND condition (OR is not supported). Maximum result
+        set size is 100. Offset is the zero-based number of endpoint from the start
+        of the result set (start by counting from 0).
+      id: c6e1aee6-7463-4de2-83bc-8d61198c1096
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get Endpoints
+      playbooktaskmissingcomponent: null
+      script: Cortex Core - IR|||core-get-endpoints
+      type: regular
+      version: -1
+    taskid: c6e1aee6-7463-4de2-83bc-8d61198c1096
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 695,
+          "y": 1315
+        }
+      }
+  "24":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: endpoint_id
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "24"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "42"
+      "yes":
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 9ea7d970-53a2-4590-8e5f-ea37e17ee03a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were Endpoints found?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 9ea7d970-53a2-4590-8e5f-ea37e17ee03a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 1685
+        }
+      }
+  "25":
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "26"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 3885f3ff-3804-4d44-8cdf-fe2c51679359
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Run Script on Endpoints
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 3885f3ff-3804-4d44-8cdf-fe2c51679359
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 1877.5
+        }
+      }
+  "26":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "41"
+      '#none#':
+      - "36"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_ids:
+        complex:
+          root: endpoint_id
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ','
+            operator: join
+      polling_interval_in_seconds:
+        simple: "60"
+      script_uid:
+        simple: ${script_uuid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Core - IR
+      description: Initiates a new endpoint script execution using a script from the
+        script library and returns the results.
+      id: e7c22f1e-1d33-4e02-8f88-4ba2cf1e9b43
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Run Script
+      playbooktaskmissingcomponent: null
+      script: Cortex Core - IR|||core-script-run
+      type: regular
+      version: -1
+    taskid: e7c22f1e-1d33-4e02-8f88-4ba2cf1e9b43
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 2055
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "24"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: endpoint_id
+      value:
+        complex:
+          accessor: endpoint_id
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: Core.Endpoint.os_type
+              operator: StringContainsArray
+              right:
+                iscontext: true
+                value:
+                  simple: inputs.endpoint_os
+          root: Core.Endpoint
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 5ccfd91d-14d6-4220-a4b0-0a025a0c0dda
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Filter Endpoints
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 5ccfd91d-14d6-4220-a4b0-0a025a0c0dda
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 1500
+        }
+      }
+  "36":
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          accessor: ScriptResult
+          root: Core
+          transformers:
+          - args:
+              dt:
+                value:
+                  simple: '.={ok: true, result: val}'
+            operator: DT
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: a731206c-23c2-418f-87f5-e1425f0c6c90
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Success
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: a731206c-23c2-418f-87f5-e1425f0c6c90
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 2240
+        }
+      }
+  "37":
+    continueonerrortype: ""
+    id: "37"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: .
+          transformers:
+          - args:
+              ctx_data: {}
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: |-
+                    {
+                      "ok": false,
+                      "reason": "Only one script name can be specified."
+                    }
+              template_type:
+                value:
+                  simple: json
+              variable_markers: {}
+            operator: FormatTemplate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: b50c45d8-6663-4ce7-8983-21d1d318f15c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Input Parameter Error
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: b50c45d8-6663-4ce7-8983-21d1d318f15c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1555,
+          "y": 575
+        }
+      }
+  "38":
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: inputs.script_name
+          transformers:
+          - args:
+              ctx_data:
+                iscontext: true
+                value:
+                  simple: .
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: |-
+                    {
+                      "ok": false,
+                      "reason": "No script UUIDs were found for ${..}."
+                    }
+              template_type:
+                value:
+                  simple: json
+              variable_markers: {}
+            operator: FormatTemplate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 27e00a21-a2aa-4cb1-8e99-e41a630edfc8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - No script UUIDs were found
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 27e00a21-a2aa-4cb1-8e99-e41a630edfc8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1125,
+          "y": 1130
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: inputs.script_name
+          transformers:
+          - args:
+              ctx_data:
+                iscontext: true
+                value:
+                  simple: .
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: |-
+                    {
+                      "ok": false,
+                      "reason": "Multiple script UUIDs were found for  ${..}."
+                    }
+              template_type:
+                value:
+                  simple: json
+              variable_markers: {}
+            operator: FormatTemplate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 0f22b8de-78f1-4671-81c7-50344a86e556
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Multiple Script UUIDs were found
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 0f22b8de-78f1-4671-81c7-50344a86e556
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1555,
+          "y": 1130
+        }
+      }
+  "40":
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: ErrorEntries
+          transformers:
+          - operator: FirstArrayElement
+          - args:
+              prefix:
+                value:
+                  simple: 'core-script-run: '
+              suffix: {}
+            operator: concat
+          - args:
+              dt:
+                value:
+                  simple: '.={ok: false, reason: val}'
+            operator: DT
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 7d313075-46fe-4e6c-8543-bfa90e8b8ffa
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Failure
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 7d313075-46fe-4e6c-8543-bfa90e8b8ffa
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 2425
+        }
+      }
+  "41":
+    continueonerrortype: ""
+    id: "41"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "40"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      entry_id:
+        simple: ${lastCompletedTaskEntries}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Get the error(s) associated with a given entry/entries. Use ${lastCompletedTaskEntries}
+        to check the previous task entries. The automation will return an array of
+        the error contents from those entries.
+      id: a10dd993-9ac4-4e3d-8b4a-7faacd70ecf5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get Errors
+      playbooktaskmissingcomponent: null
+      script: GetErrorsFromEntry
+      type: regular
+      version: -1
+    taskid: a10dd993-9ac4-4e3d-8b4a-7faacd70ecf5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 2240
+        }
+      }
+  "42":
+    continueonerrortype: ""
+    id: "42"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: .
+          transformers:
+          - args:
+              dt:
+                value:
+                  simple: '.={ok: true}'
+            operator: DT
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 891689be-abab-4a73-a57b-4224ae764143
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Success (No Endpoints)
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 891689be-abab-4a73-a57b-4224ae764143
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 695,
+          "y": 1870
+        }
+      }
+  "43":
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: ScriptResult
+      value:
+        complex:
+          root: ErrorEntries
+          transformers:
+          - operator: FirstArrayElement
+          - args:
+              prefix:
+                value:
+                  simple: 'core-get-endpoints: '
+              suffix: {}
+            operator: concat
+          - args:
+              dt:
+                value:
+                  simple: '.={ok: false, reason: val}'
+            operator: DT
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Set a value in context under the key you entered. If no value
+        is entered, the script doesn't do anything.\n\nThis automation runs using
+        the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 4af878a1-1116-46bb-819a-048f3f85a52d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set ScriptResult - Failure
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4af878a1-1116-46bb-819a-048f3f85a52d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 1685
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "43"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      entry_id:
+        simple: ${lastCompletedTaskEntries}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Get the error(s) associated with a given entry/entries. Use ${lastCompletedTaskEntries}
+        to check the previous task entries. The automation will return an array of
+        the error contents from those entries.
+      id: 07f16920-43fa-4cee-86be-5bda366cfed1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get Errors
+      playbooktaskmissingcomponent: null
+      script: GetErrorsFromEntry
+      type: regular
+      version: -1
+    taskid: 07f16920-43fa-4cee-86be-5bda366cfed1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 1500
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 2450,
+        "width": 1885,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }

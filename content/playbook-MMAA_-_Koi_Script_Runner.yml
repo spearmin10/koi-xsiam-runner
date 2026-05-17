@@ -1,0 +1,704 @@
+adopted: true
+description: |-
+  This playbook executes a KOI script on endpoints and notifies the result.
+  Note that this playbook must be executed as a Job.
+dirtyInputs: true
+id: MMAA - Koi Script Runner
+inputSections:
+- description: Generic group for inputs
+  inputs:
+  - config_entry
+  name: General (Inputs group)
+inputs:
+- description: An entry in the KOI Script Runner configuration. It must include the
+    script.name, target.endpoint_os, and either target.endpoint_groups or target.endpoint_hostnames
+    nodes.
+  key: config_entry
+  playbookInputQuery: null
+  required: true
+  value: {}
+name: MMAA - Koi Script Runner
+outlinetasks: {}
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
+outputs: []
+possibleresponses: []
+sourceplaybookid: 7b52e67b-de88-4f87-8dc4-065890b658ca
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "40"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e81ce407-74f7-44ff-84f1-391b9f822782
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: e81ce407-74f7-44ff-84f1-391b9f822782
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 50
+        }
+      }
+  "29":
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      htmlBody:
+        simple: ${notification_email.html_body}
+      subject:
+        simple: ${notification_email.subject}
+      to:
+        simple: ${inputs.config_entry.notification.recipients}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: TSRAIN Mail Server Compact
+      description: Send an email
+      id: 0562e295-0154-4454-8345-e3c0cdfa7c3f
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Send Notification
+      playbooktaskmissingcomponent: null
+      script: TSRAIN Mail Server Compact|||send-mail
+      type: regular
+      version: -1
+    taskid: 0562e295-0154-4454-8345-e3c0cdfa7c3f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 1670
+        }
+      }
+  "30":
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: fd2659d5-ebb4-484a-8f4d-6a665820dac3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: fd2659d5-ebb4-484a-8f4d-6a665820dac3
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 1855
+        }
+      }
+  "37":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: ScriptResult.ok
+          operator: isTrue
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "37"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "47"
+      "yes":
+      - "46"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cdad3036-33f6-4364-88a0-4553e373299d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the script run successful?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cdad3036-33f6-4364-88a0-4553e373299d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 1300
+        }
+      }
+  "38":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.notification.recipients
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "30"
+      "yes":
+      - "37"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8f14d2b8-8259-40da-8ed5-bfd6d9eddcc0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Send Notifications?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8f14d2b8-8259-40da-8ed5-bfd6d9eddcc0
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 1115
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "38"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e5bd4488-b8cc-453a-8881-5e709569b8df
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Notification
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e5bd4488-b8cc-453a-8881-5e709569b8df
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 945
+        }
+      }
+  "40":
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "43"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 12cb808c-7def-4f0e-810c-190fc9a2aa5a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Input Parameters
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 12cb808c-7def-4f0e-810c-190fc9a2aa5a
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 220
+        }
+      }
+  "42":
+    continueonerrortype: ""
+    id: "42"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "45"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cf007f4a-01f5-4d59-8b6e-fc7976b46a38
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Run Koi Script Package
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: cf007f4a-01f5-4d59-8b6e-fc7976b46a38
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 582.5
+        }
+      }
+  "43":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.script.name
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.target.endpoint_os
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.target.endpoint_groups
+          operator: isNotEmpty
+        - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.target.endpoint_hostnames
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "44"
+      "yes":
+      - "42"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cbc75411-c9e5-4ce9-87dd-9ac8fd630e0d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Configuration Parameters
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cbc75411-c9e5-4ce9-87dd-9ac8fd630e0d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 390
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      message:
+        simple: Required parameters are missing from the configuration.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints an error entry with a given message.
+      id: 283bef46-9432-4e9e-8a5a-378df470479f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Configuration Errors
+      playbooktaskmissingcomponent: null
+      script: PrintErrorEntry
+      type: regular
+      version: -1
+    taskid: 283bef46-9432-4e9e-8a5a-378df470479f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 807.5,
+          "y": 575
+        }
+      }
+  "45":
+    continueonerrortype: ""
+    id: "45"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "39"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_groups:
+        simple: ${inputs.config_entry.target.endpoint_groups}
+      endpoint_hostnames:
+        simple: ${inputs.config_entry.target.endpoint_hostnames}
+      endpoint_os:
+        simple: ${inputs.config_entry.target.endpoint_os}
+      script_name:
+        simple: ${inputs.config_entry.script.name}
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This playbook executes a script on endpoints.
+      id: b8d25145-170f-4bc2-8c95-62e3c0e8cf0f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Run KOI Script Package
+      playbookId: MMAA - Run Endpoint Script
+      playbooktaskmissingcomponent: null
+      type: playbook
+      version: -1
+    taskid: b8d25145-170f-4bc2-8c95-62e3c0e8cf0f
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 760
+        }
+      }
+  "46":
+    continueonerrortype: ""
+    id: "46"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: notification_email
+      value:
+        complex:
+          root: .
+          transformers:
+          - args:
+              ctx_data:
+                iscontext: true
+                value:
+                  simple: .
+              ctx_inc: {}
+              ctx_inputs:
+                iscontext: true
+                value:
+                  simple: inputs
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta
+                    charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width,
+                    initial-scale=1.0\">\n    <title>Koi Script Package - Execution
+                    Completed</title>\n</head>\n<body style=\"font-family: 'Helvetica
+                    Neue', Arial, sans-serif; background-color: #f1f5f2; margin: 0;
+                    padding: 0; -webkit-font-smoothing: antialiased;\">\n\n    <div
+                    class=\"email-container\" style=\"max-width: 600px; margin: 40px
+                    auto; background-color: #ffffff; border-radius: 8px; overflow:
+                    hidden; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.05); border-top:
+                    6px solid #2e7d32;\">\n        \n        <div class=\"header\"
+                    style=\"padding: 30px 40px 10px 40px; text-align: left;\">\n            <span
+                    class=\"status-badge\" style=\"display: inline-block; background-color:
+                    #e8f5e9; color: #1b5e20; font-size: 12px; font-weight: bold; padding:
+                    6px 14px; border-radius: 50px; letter-spacing: 0.5px; margin-bottom:
+                    15px;\">SUCCESS</span>\n            <h1 style=\"color: #2c3e2e;
+                    font-size: 22px; margin: 0; font-weight: 700;\">Koi Script Package
+                    Execution</h1>\n        </div>\n\n        <div class=\"content\"
+                    style=\"padding: 10px 40px 30px 40px; color: #4a5c4e; line-height:
+                    1.7; font-size: 15px;\">            \n            <p style=\"margin:
+                    0 0 16px 0;\">The execution of the Koi Script Package has completed
+                    successfully.</p>\n\n            <div class=\"endpoints-box\"
+                    style=\"background-color: #f9fbf9; border-left: 4px solid #2e7d32;
+                    border-radius: 4px; padding: 16px; margin: 24px 0;\">\n                <div
+                    style=\"font-size: 12px; font-weight: bold; color: #1b5e20; text-transform:
+                    uppercase; margin-bottom: 8px;\">Target Endpoints:</div>\n                <ul
+                    style=\"margin: 0; padding-left: 20px; font-size: 14px; color:
+                    #2c3e2e; font-family: Monaco, Consolas, monospace; list-style-type:
+                    disc;\">\n                    ${ScriptResult.result.results.endpoint_name=>Array.from(new
+                    Set(val.map(x => '<li style=\"margin-bottom: 4px; word-break:
+                    break-all;\">' + x + '</li>'))).join('')}\n                </ul>\n
+                    \           </div>\n\n            <p style=\"margin: 0 0 16px
+                    0;\">To review the execution details, logs, or generated data
+                    for this job, please access the management console using the link
+                    below.</p>\n\n            <div class=\"btn-wrapper\" style=\"text-align:
+                    center; margin: 35px 0 15px 0;\">\n                <a href=\"${demistoUrls.server}/job-runs?jobId=${issue.parent}&action:openJobRunDetails=${issue.id}-workPlan\"
+                    class=\"btn\" style=\"display: inline-block; background-color:
+                    #2e7d32; color: #ffffff !important; text-decoration: none; padding:
+                    14px 32px; font-size: 14px; font-weight: 600; border-radius: 6px;
+                    box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2); transition: background-color
+                    0.2s;\">View Execution Job</a>\n            </div>\n        </div>\n
+                    \   </div>\n</body>\n</html>"
+              template_type:
+                value:
+                  simple: raw
+              variable_markers: {}
+            operator: FormatTemplate
+          - args:
+              ctx_data: {}
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: |-
+                    {
+                      "subject": "Koi Script Runner Completed",
+                      "html_body": "${..}"
+                    }
+              template_type:
+                value:
+                  simple: json
+              variable_markers: {}
+            operator: FormatTemplate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: f7f71a22-57cc-4bbb-8609-d51eb7710ddd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Create Success Email Message
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: f7f71a22-57cc-4bbb-8609-d51eb7710ddd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 1485
+        }
+      }
+  "47":
+    continueonerrortype: ""
+    id: "47"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "false"
+      key:
+        simple: notification_message
+      value:
+        complex:
+          root: .
+          transformers:
+          - args:
+              ctx_data:
+                iscontext: true
+                value:
+                  simple: .
+              ctx_inc: {}
+              ctx_inputs:
+                iscontext: true
+                value:
+                  simple: inputs
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta
+                    charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width,
+                    initial-scale=1.0\">\n    <title>Koi Script Package - Execution
+                    Failed</title>\n</head>\n<body style=\"font-family: 'Helvetica
+                    Neue', Arial, sans-serif; background-color: #fbebe9; margin: 0;
+                    padding: 0; -webkit-font-smoothing: antialiased;\">\n\n    <div
+                    class=\"email-container\" style=\"max-width: 600px; margin: 40px
+                    auto; background-color: #ffffff; border-radius: 8px; overflow:
+                    hidden; box-shadow: 0 4px 15px rgba(198, 40, 40, 0.05); border-top:
+                    6px solid #c62828;\">\n        \n        <div class=\"header\"
+                    style=\"padding: 30px 40px 10px 40px; text-align: left;\">\n            <span
+                    class=\"status-badge\" style=\"display: inline-block; background-color:
+                    #ffebee; color: #b71c1c; font-size: 12px; font-weight: bold; padding:
+                    6px 14px; border-radius: 50px; letter-spacing: 0.5px; margin-bottom:
+                    15px;\">FAILED</span>\n            <h1 style=\"color: #3e2723;
+                    font-size: 22px; margin: 0; font-weight: 700;\">Koi Script Package
+                    Alert</h1>\n        </div>\n\n        <div class=\"content\" style=\"padding:
+                    10px 40px 30px 40px; color: #5d4037; line-height: 1.7; font-size:
+                    15px;\">\n            <p style=\"margin: 0 0 16px 0;\">The execution
+                    of the Koi Script Package has <strong>failed</strong> due to an
+                    error encountered during the process.</p>\n            \n            <div
+                    class=\"error-box\" style=\"background-color: #fff5f5; border-left:
+                    4px solid #e53935; border-radius: 4px; padding: 16px; margin:
+                    24px 0; font-family: 'Courier New', Courier, monospace;\">\n                <div
+                    style=\"font-size: 12px; font-weight: bold; color: #e53935; text-transform:
+                    uppercase; margin-bottom: 6px; font-family: 'Helvetica Neue',
+                    Arial, sans-serif;\">Error Reason:</div>\n                <div
+                    style=\"font-size: 14px; color: #b71c1c; white-space: pre-wrap;
+                    word-break: break-all;\">${ScriptResult.reason}</div>\n            </div>\n\n
+                    \           <p style=\"margin: 0 0 16px 0;\">To investigate the
+                    failure, review the complete logs, and retry the execution, please
+                    access the management console via the button below.</p>\n\n            <div
+                    class=\"btn-wrapper\" style=\"text-align: center; margin: 35px
+                    0 15px 0;\">\n                <a href=\"${demistoUrls.server}/job-runs?jobId=${issue.parent}&action:openJobRunDetails=${issue.id}-workPlan\"
+                    class=\"btn\" style=\"display: inline-block; background-color:
+                    #c62828; color: #ffffff !important; text-decoration: none; padding:
+                    14px 32px; font-size: 14px; font-weight: 600; border-radius: 6px;
+                    box-shadow: 0 2px 5px rgba(198, 40, 40, 0.2); transition: background-color
+                    0.2s;\">View Error Logs</a>\n            </div>\n        </div>\n
+                    \   </div>\n</body>\n</html>"
+              template_type: {}
+              variable_markers: {}
+            operator: FormatTemplate
+          - args:
+              ctx_data: {}
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              template:
+                value:
+                  simple: |-
+                    {
+                      "subject": "Koi Script Runner Failed",
+                      "html_body": "${..}"
+                    }
+              template_type:
+                value:
+                  simple: json
+              variable_markers: {}
+            operator: FormatTemplate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 77a4eaad-d9fa-4064-8571-468a3749faae
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Create Failure Email Message
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 77a4eaad-d9fa-4064-8571-468a3749faae
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 1485
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 1865,
+        "width": 1137.5,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }
