@@ -538,19 +538,9 @@ tasks:
         simple: notification_email
       value:
         complex:
-          root: .
+          accessor: endpoint_name
+          root: ScriptResult.result.results
           transformers:
-          - args:
-              dt:
-                value:
-                  simple: ScriptResult.result.results.endpoint_name
-            operator: DT
-          - args:
-              empty_values:
-                value:
-                  simple: None
-              remove_keys: {}
-            operator: RemoveEmpty
           - operator: uniq
           - operator: StringifyArray
           - args:
@@ -558,7 +548,7 @@ tasks:
                 value:
                   simple: |-
                     .={
-                      endpoint_names: JSON.parse(val).filter(x => x)
+                      endpoint_names: JSON.parse(val)
                     }
             operator: DT
           - args:
@@ -642,7 +632,7 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: c1188794-7e97-46d5-8759-e4d4eabafdec
+      id: 2391718e-0bf9-4566-ad78-bf55529b41b5
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Create Success Email Message
@@ -650,7 +640,7 @@ tasks:
       script: Set
       type: regular
       version: -1
-    taskid: c1188794-7e97-46d5-8759-e4d4eabafdec
+    taskid: 2391718e-0bf9-4566-ad78-bf55529b41b5
     timertriggers: []
     type: regular
     view: |-
