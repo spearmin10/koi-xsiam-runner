@@ -118,7 +118,8 @@ Configures post-execution status reporting and alerting workflows.
 
 | Field Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `sendmail_instance` | Object | **No** | The name of an active integration instance that supports the `send-mail` command. Requires an inner `name` field. |
+| `sendmail_instance` | Object | **No** | The configuration block for the mail sender integration that supports the `send-mail` command. |
+| `sendmail_instance.name` | String | **No** | The name of an active integration instance. |
 | `recipients` | Array (String) | **No** | A list of destination email addresses for administrative alerts or operational routing. |
 
 ---
