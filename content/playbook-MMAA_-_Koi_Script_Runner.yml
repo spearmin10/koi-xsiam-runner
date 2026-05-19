@@ -494,7 +494,33 @@ tasks:
       endpoint_hostnames:
         simple: ${inputs.config_entry.target.endpoint_hostnames}
       endpoint_os:
-        simple: ${inputs.config_entry.target.endpoint_os}
+        complex:
+          accessor: endpoint_os
+          root: inputs.config_entry.target
+          transformers:
+          - args:
+              algorithm:
+                value:
+                  simple: wildcard
+              caseless:
+                value:
+                  simple: "true"
+              compare_fields: {}
+              context: {}
+              default_value: {}
+              flags: {}
+              mappings:
+                value:
+                  simple: |-
+                    {
+                      "Windows": "Windows",
+                      "Linux": "Linux",
+                      "Mac": "Mac",
+                      "Mac": "MacOS"
+                    }
+              priority: {}
+              wildcards: {}
+            operator: MapPattern
       script_name:
         simple: ${inputs.config_entry.script.name}
     separatecontext: true
@@ -502,7 +528,7 @@ tasks:
     task:
       brand: ""
       description: This playbook executes a script on endpoints.
-      id: b8d25145-170f-4bc2-8c95-62e3c0e8cf0f
+      id: 9c398c1e-5ca7-4fc4-ba99-c5f0449fe81e
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Run KOI Script Package
@@ -510,7 +536,7 @@ tasks:
       playbooktaskmissingcomponent: null
       type: playbook
       version: -1
-    taskid: b8d25145-170f-4bc2-8c95-62e3c0e8cf0f
+    taskid: 9c398c1e-5ca7-4fc4-ba99-c5f0449fe81e
     timertriggers: []
     type: playbook
     view: |-

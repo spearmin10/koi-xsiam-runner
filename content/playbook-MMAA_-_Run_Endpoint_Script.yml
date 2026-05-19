@@ -25,19 +25,17 @@ inputs:
   required: false
   value: {}
 - description: Target OS type for the endpoints where the script will execute (e.g.,
-    Windows, macOS)
+    Windows, Linux,  Mac)
   key: endpoint_os
   playbookInputQuery: null
   required: true
-  value:
-    simple: Windows
+  value: {}
 - description: The name of a script to be executed, matching the entry in the Action
     Center Script Library.
   key: script_name
   playbookInputQuery: null
   required: true
-  value:
-    simple: Koi Script Package - Windows
+  value: {}
 name: MMAA - Run Endpoint Script
 outlinetasks: {}
 outputSections:
