@@ -28,7 +28,7 @@ This bundle contains the following Cortex XSIAM contents:
 ### Playbooks
 
 * **`Koi Script Runner` (Main Playbook)**
-  * The main playbook configured in Jobs to execute the Koi script package and handle notification processing based on the configuration layout.
+  * The main playbook configured in Jobs to execute the Koi script package and handle notification processing based on the configuration.
 * **`MMAA - Koi Script Runner`**
   * Sub-playbook utilized by the main playbook to execute the Koi script package and handle notification processing.
 * **`MMAA - Run Endpoint Script`**
@@ -43,7 +43,7 @@ This bundle contains the following Cortex XSIAM contents:
 
 ## 🛠️ Usage
 
-### Step 1: Configure the Target List
+### Step 1: Set Up the Configuration
 
 1. In XSIAM, navigate to **Settings** > **Configurations** > **Object Setup** > **Lists**.
 2. Locate `Koi Script Runner - Sample`, clone it (or use it as a reference), and create a new list named `Koi Script Runner`.
@@ -106,8 +106,8 @@ Defines scope boundaries and target filtering criteria for endpoint execution.
 
 | Field Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `endpoint_groups` | Array (String) | No | List of targeted endpoint group names. |
-| `endpoint_hostnames` | Array (String) | No | List of specific hostnames to target. |
+| `endpoint_groups` | Array (String) | **No** | List of targeted endpoint group names. Checked as an AND condition with endpoint_hostnames. |
+| `endpoint_hostnames` | Array (String) | **No** | List of specific hostnames to target. Checked as an AND condition with endpoint_groups. |
 | `endpoint_os` | String | **Yes** | Restricts execution by OS type (e.g., `Windows`, `macOS`). Scripts will only execute on matching systems. |
 
 > ⚠️ **Important:** Either `endpoint_groups` or `endpoint_hostnames` must have non-empty values to target valid endpoints.
