@@ -75,7 +75,8 @@ The configuration must be formatted as a **JSON Array**, where each object repre
             "endpoint_groups": [
                 "Koi Endpoints"
             ],
-            "endpoint_hostnames": [],
+            "endpoint_hostnames": [
+            ],
             "endpoint_os": "Windows"
         },
         "notification": {
@@ -134,13 +135,14 @@ If you need to deploy different scripts to different operating systems or push n
 [
     {
         "script": {
-            "name": "Windows-Patch-Script"
+            "name": "Koi Script Package - Windows"
         },
         "target": {
             "endpoint_groups": [
-                "Tokyo-Branch"
+                "Koi Endpoints"
             ],
-            "endpoint_hostnames": [],
+            "endpoint_hostnames": [
+            ],
             "endpoint_os": "Windows"
         },
         "notification": {
@@ -148,30 +150,28 @@ If you need to deploy different scripts to different operating systems or push n
                 "name": "internal-smtp"
             },
             "recipients": [
-                "win-admin@example.com"
+                "koi-win@example.com"
             ]
         }
     },
     {
         "script": {
-          "name": "Linux-Clean-Script"
+          "name": "Koi Script Package - macOS"
         },
         "target": {
             "endpoint_groups": [
-                "Data-Center-Linux"
+                "Koi Endpoints"
             ],
             "endpoint_hostnames": [
-                "srv-node-01",
-                "srv-node-02"
             ],
-            "endpoint_os": "Linux"
+            "endpoint_os": "macOS"
         },
         "notification": {
             "sendmail_instance": {
                 "name": "internal-smtp"
             },
             "recipients": [
-                "linux-ops@example.com"
+                "koi-mac@example.com"
             ]
         }
     }
