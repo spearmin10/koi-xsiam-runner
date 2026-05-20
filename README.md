@@ -93,17 +93,22 @@ The configuration must be formatted as a **JSON Array**, where each object repre
 
 ### 2. Parameter Details
 
-#### 2.1. `script` Object (Required)
+#### 2.1. Root Fields
 
-Contains configuration properties regarding the script file to be executed.
+| Field Name | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `disabled` | Boolean | No | `false` | If set to `true`, this entry will be skipped entirely. If omitted, it defaults to `false` (enabled). |
+| `script` | Object | **Yes** | - | Contains configuration properties regarding the script file to be executed. |
+| `target` | Object | **Yes** | - | Defines scope boundaries and target filtering criteria for endpoint execution. |
+| `notification` | Object | No | - | Configures post-execution status reporting and alerting workflows. |
+
+#### 2.2. `script` Object (Required)
 
 | Field Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | `name` | String | **Yes** | Specifies the exact name of the target script package to execute. |
 
-#### 2.2. `target` Object (Required)
-
-Defines scope boundaries and target filtering criteria for endpoint execution.
+#### 2.3. `target` Object (Required)
 
 | Field Name | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -113,9 +118,7 @@ Defines scope boundaries and target filtering criteria for endpoint execution.
 
 > ⚠️ **Important:** Either `endpoint_groups` or `endpoint_hostnames` must have non-empty values to target valid endpoints.
 
-#### 2.3. `notification` Object (Optional)
-
-Configures post-execution status reporting and alerting workflows.
+#### 2.4. `notification` Object (Optional)
 
 | Field Name | Type | Required | Description |
 | --- | --- | --- | --- |
