@@ -55,8 +55,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
-          "y": 50
+          "x": 460,
+          "y": 40
         }
       }
   "29":
@@ -99,7 +99,7 @@ tasks:
       {
         "position": {
           "x": 807.5,
-          "y": 2040
+          "y": 2225
         }
       }
   "30":
@@ -127,8 +127,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 150,
-          "y": 2210
+          "x": 110,
+          "y": 2410
         }
       }
   "37":
@@ -172,7 +172,7 @@ tasks:
       {
         "position": {
           "x": 592.5,
-          "y": 1485
+          "y": 1670
         }
       }
   "38":
@@ -280,7 +280,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 1300
+          "y": 1485
         }
       }
   "39":
@@ -312,7 +312,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 1130
+          "y": 1315
         }
       }
   "40":
@@ -323,7 +323,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "43"
+      - "51"
     note: false
     quietmode: 0
     separatecontext: false
@@ -343,8 +343,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
-          "y": 405
+          "x": 460,
+          "y": 395
         }
       }
   "42":
@@ -376,7 +376,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 767.5
+          "y": 952.5
         }
       }
   "43":
@@ -421,21 +421,21 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: cbc75411-c9e5-4ce9-87dd-9ac8fd630e0d
+      id: 921dfe17-70a1-47c0-b121-e6c2491343bb
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check Configuration Parameters
+      name: Check the config entry parameters
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: cbc75411-c9e5-4ce9-87dd-9ac8fd630e0d
+    taskid: 921dfe17-70a1-47c0-b121-e6c2491343bb
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 265,
-          "y": 575
+          "x": 670,
+          "y": 750
         }
       }
   "44":
@@ -468,8 +468,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 50,
-          "y": 760
+          "x": 910,
+          "y": 930
         }
       }
   "45":
@@ -543,7 +543,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 945
+          "y": 1130
         }
       }
   "46":
@@ -673,7 +673,7 @@ tasks:
       {
         "position": {
           "x": 807.5,
-          "y": 1670
+          "y": 1855
         }
       }
   "47":
@@ -789,7 +789,7 @@ tasks:
       {
         "position": {
           "x": 377.5,
-          "y": 1670
+          "y": 1855
         }
       }
   "48":
@@ -830,7 +830,7 @@ tasks:
       {
         "position": {
           "x": 377.5,
-          "y": 2040
+          "y": 2225
         }
       }
   "49":
@@ -872,7 +872,7 @@ tasks:
       {
         "position": {
           "x": 592.5,
-          "y": 1855
+          "y": 2040
         }
       }
   "50":
@@ -915,8 +915,52 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
+          "x": 460,
           "y": 220
+        }
+      }
+  "51":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.config_entry.disabled
+          operator: isTrue
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "51"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "43"
+      "yes":
+      - "30"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 270f4283-225d-4caf-9717-5263aa2b5d4e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the config entry disabled?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 270f4283-225d-4caf-9717-5263aa2b5d4e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": 590
         }
       }
 version: -1
@@ -925,10 +969,10 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 2220,
-        "width": 1137.5,
-        "x": 50,
-        "y": 50
+        "height": 2430,
+        "width": 1180,
+        "x": 110,
+        "y": 40
       }
     }
   }

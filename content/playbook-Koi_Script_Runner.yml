@@ -48,17 +48,20 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 50,
+          "x": 265,
           "y": 50
         }
       }
   "2":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "2"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#error#':
+      - "6"
       '#none#':
       - "5"
     note: false
@@ -79,7 +82,7 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 2854fe86-e9cb-4859-8b30-79746e903aa8
+      id: 34e76ab7-c264-4ffa-94d2-a164f573a474
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Load the "Koi Script Runner" configuration
@@ -87,13 +90,13 @@ tasks:
       script: Set
       type: regular
       version: -1
-    taskid: 2854fe86-e9cb-4859-8b30-79746e903aa8
+    taskid: 34e76ab7-c264-4ffa-94d2-a164f573a474
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 50,
+          "x": 265,
           "y": 220
         }
       }
@@ -195,6 +198,40 @@ tasks:
           "y": 405
         }
       }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      message:
+        simple: No or invalid 'Koi Script Runner' configuration found.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints an error entry with a given message.
+      id: 0c292f20-89e0-4c5f-8a60-edc8224d6f93
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Configuration Errors
+      playbooktaskmissingcomponent: null
+      script: PrintErrorEntry
+      type: regular
+      version: -1
+    taskid: 0c292f20-89e0-4c5f-8a60-edc8224d6f93
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 405
+        }
+      }
 version: -1
 view: |-
   {
@@ -202,7 +239,7 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 615,
-        "width": 380,
+        "width": 810,
         "x": 50,
         "y": 50
       }
