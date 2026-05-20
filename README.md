@@ -109,7 +109,7 @@ Defines scope boundaries and target filtering criteria for endpoint execution.
 | --- | --- | --- | --- |
 | `endpoint_groups` | Array (String) | **No** | List of targeted endpoint group names. Checked as an AND condition with endpoint_hostnames. |
 | `endpoint_hostnames` | Array (String) | **No** | List of specific hostnames to target. Checked as an AND condition with endpoint_groups. |
-| `endpoint_os` | String | **Yes** | Restricts execution by OS type (e.g., `Windows`, `macOS`). Scripts will only execute on matching systems. |
+| `endpoint_os` | String | **Yes** | Restricts execution by OS type (e.g., `Windows`, `Linux` or `macOS`). Scripts will only execute on matching systems. |
 
 > ⚠️ **Important:** Either `endpoint_groups` or `endpoint_hostnames` must have non-empty values to target valid endpoints.
 
