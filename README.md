@@ -68,6 +68,7 @@ The configuration must be formatted as a **JSON Array**, where each object repre
 ```json
 [
     {
+        "disabled": false,
         "script": {
             "name": "Koi Script Package"
         },
